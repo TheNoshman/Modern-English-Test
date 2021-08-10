@@ -1,12 +1,20 @@
 import React, { useEffect, useState } from 'react';
 import { getBitcoinValueAPI } from '../serviceAPI';
-import { Container, Row, Col, Button, Spinner } from 'react-bootstrap';
+import {
+  Container,
+  Row,
+  Col,
+  Button,
+  Spinner,
+  DropdownButton,
+  Dropdown,
+} from 'react-bootstrap';
 import { useHistory } from 'react-router-dom';
 
 export default function Value() {
   const [bitcoinValue, setBitcoinValue] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [reload, setReload] = useState(false);
+  const [selected, setSelected] = useState('AUD');
   const history = useHistory();
 
   useEffect(() => {
@@ -14,7 +22,7 @@ export default function Value() {
       setBitcoinValue(await getBitcoinValueAPI());
       setLoading(false);
     })();
-  }, [reload]);
+  }, []);
 
   return (
     <Container>
@@ -28,17 +36,24 @@ export default function Value() {
             </Col>
           ) : (
             <Col>
-              <h6>Select currency: </h6>
-              {/* {bitcoinValue.map((el) => {})} */}
-              <h1>done {bitcoinValue.AUD.buy}</h1>
+              <DropdownButton
+                id='dropdown-basic-button'
+                title='Select currency'
+              >
+                {Object.keys(bitcoinValue).map((el, i) => {
+                  return (
+                    <Dropdown.Item key={i} onClick={() => setSelected(el)}>
+                      {el}
+                    </Dropdown.Item>
+                  );
+                })}
+              </DropdownButton>
+              <h1>
+                {selected} = {bitcoinValue[selected].buy}
+              </h1>
             </Col>
           )}
-          <Button
-            onClick={() => setReload(!reload)}
-            style={{ marginRight: '1rem' }}
-          >
-            Refresh
-          </Button>
+          <Button style={{ marginRight: '1rem' }}>Refresh</Button>
 
           <Button onClick={() => history.push('/')}>Back</Button>
         </Col>
