@@ -1,10 +1,15 @@
-import './App.css';
+import './css/App.css';
+import { createBrowserHistory } from 'history';
+import { Router } from 'react-router-dom';
+import Layout from './views/Layout';
 
 function App() {
+  // Navigation instantiation
+  const history = createBrowserHistory();
   return (
-    <div>
-      <h1>Heading</h1>
-    </div>
+    <Router history={history}>
+      <Layout />
+    </Router>
   );
 }
 
