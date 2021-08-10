@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useMemo } from 'react';
 import { getBitcoinValueAPI } from '../serviceAPI';
 import {
   Container,
@@ -13,7 +13,7 @@ import {
 import { useHistory } from 'react-router-dom';
 
 export default function Value() {
-  const [bitcoinValue, setBitcoinValue] = useState([]);
+  const [bitcoinValue, setBitcoinValue] = useState('');
   const [loading, setLoading] = useState(true);
   const [selected, setSelected] = useState('AUD');
   const history = useHistory();
@@ -25,10 +25,16 @@ export default function Value() {
     })();
   }, []);
 
+  const updateState = async () => {
+    const result = setBitcoinValue(await getBitcoinValueAPI());
+    console.log('result = ', result);
+  };
+
   return (
     <Container>
       <Row>
         <Col>
+          <h1>Check Bitcoin Value</h1>
           {loading ? (
             <Col>
               <Spinner animation='border' role='status'>
@@ -64,7 +70,9 @@ export default function Value() {
               </Row>
             </Col>
           )}
-          <Button style={{ marginRight: '1rem' }}>Refresh</Button>
+          <Button style={{ marginRight: '1rem' }} onClick={() => updateState()}>
+            Refresh
+          </Button>
 
           <Button onClick={() => history.push('/')}>Back</Button>
         </Col>
@@ -72,3 +80,14 @@ export default function Value() {
     </Container>
   );
 }
+
+// useEffect(() => {
+//   const fetchData = async () => {
+//     setBitcoinValue(await getBitcoinValueAPI());
+//     setLoading(false);
+//   };
+//   const timer = setTimeout(() => {
+//     fetchData();
+//   }, 5000);
+//   return () => clearTimeout(timer);
+// }, []);
