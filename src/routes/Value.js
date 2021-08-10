@@ -8,6 +8,7 @@ import {
   Spinner,
   DropdownButton,
   Dropdown,
+  ListGroup,
 } from 'react-bootstrap';
 import { useHistory } from 'react-router-dom';
 
@@ -37,6 +38,7 @@ export default function Value() {
           ) : (
             <Col>
               <DropdownButton
+                style={{ marginTop: '1rem' }}
                 id='dropdown-basic-button'
                 title='Select currency'
               >
@@ -48,9 +50,18 @@ export default function Value() {
                   );
                 })}
               </DropdownButton>
-              <h1>
-                {selected} = {bitcoinValue[selected].buy}
-              </h1>
+              <Row>
+                <h2 style={{ marginTop: '1rem' }}>{selected}</h2>
+                <hr />
+                <ListGroup>
+                  <ListGroup.Item>
+                    Buy @ {bitcoinValue[selected].buy}
+                  </ListGroup.Item>
+                  <ListGroup.Item style={{ marginBottom: '1rem' }}>
+                    Sell @ {bitcoinValue[selected].buy}
+                  </ListGroup.Item>
+                </ListGroup>
+              </Row>
             </Col>
           )}
           <Button style={{ marginRight: '1rem' }}>Refresh</Button>
