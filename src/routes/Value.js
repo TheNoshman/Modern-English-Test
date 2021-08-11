@@ -54,7 +54,10 @@ export default function Value() {
                 label='Select currency'
                 style={{ marginTop: '1rem', marginBottom: '1rem' }}
               >
-                <Form.Select aria-label='Floating label select example'>
+                <Form.Select
+                  aria-label='Floating label select example'
+                  value={selected}
+                >
                   {Object.keys(bitcoinValue).map((el, i) => {
                     return (
                       <option
