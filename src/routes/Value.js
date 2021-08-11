@@ -87,7 +87,7 @@ export default function Value() {
           <Button
             variant='outline-danger'
             style={{ marginRight: '1rem' }}
-            onClick={() => window.location.reload(false)}
+            onClick={() => window.location.reload(true)}
           >
             Hard Refresh
           </Button>
