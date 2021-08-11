@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useMemo } from 'react';
+import React, { useEffect, useState } from 'react';
 import { getBitcoinValueAPI } from '../serviceAPI';
 import {
   Container,
@@ -6,9 +6,9 @@ import {
   Col,
   Button,
   Spinner,
-  DropdownButton,
-  Dropdown,
+  FloatingLabel,
   ListGroup,
+  Form,
 } from 'react-bootstrap';
 import { useHistory } from 'react-router-dom';
 
@@ -20,14 +20,17 @@ export default function Value() {
 
   useEffect(() => {
     (async () => {
-      setBitcoinValue(await getBitcoinValueAPI());
+      const result = await getBitcoinValueAPI();
+      setBitcoinValue(result);
       setLoading(false);
     })();
   }, []);
 
   const updateState = async () => {
-    const result = setBitcoinValue(await getBitcoinValueAPI());
-    console.log('result = ', result);
+    setLoading(true);
+    const result = await getBitcoinValueAPI();
+    setBitcoinValue(result);
+    setLoading(false);
   };
 
   return (
@@ -43,21 +46,26 @@ export default function Value() {
             </Col>
           ) : (
             <Col>
-              <DropdownButton
-                style={{ marginTop: '1rem' }}
-                id='dropdown-basic-button'
-                title='Select currency'
+              <FloatingLabel
+                controlId='floatingSelectGrid'
+                label='Select currency'
+                style={{ marginTop: '1rem', marginBottom: '1rem' }}
               >
-                {Object.keys(bitcoinValue).map((el, i) => {
-                  return (
-                    <Dropdown.Item key={i} onClick={() => setSelected(el)}>
-                      {el}
-                    </Dropdown.Item>
-                  );
-                })}
-              </DropdownButton>
+                <Form.Select aria-label='Floating label select example'>
+                  {Object.keys(bitcoinValue).map((el, i) => {
+                    return (
+                      <option
+                        key={i}
+                        value={el}
+                        onClick={() => setSelected(el)}
+                      >
+                        {el}
+                      </option>
+                    );
+                  })}
+                </Form.Select>
+              </FloatingLabel>
               <Row>
-                <h2 style={{ marginTop: '1rem' }}>{selected}</h2>
                 <hr />
                 <ListGroup>
                   <ListGroup.Item>
@@ -80,14 +88,3 @@ export default function Value() {
     </Container>
   );
 }
-
-// useEffect(() => {
-//   const fetchData = async () => {
-//     setBitcoinValue(await getBitcoinValueAPI());
-//     setLoading(false);
-//   };
-//   const timer = setTimeout(() => {
-//     fetchData();
-//   }, 5000);
-//   return () => clearTimeout(timer);
-// }, []);

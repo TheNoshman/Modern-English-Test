@@ -1,6 +1,8 @@
 const valueURL = 'https://blockchain.info/ticker';
 
 export const getBitcoinValueAPI = async () => {
+  console.log('in api');
+
   return fetch(valueURL)
     .then((result) => (result.status <= 400 ? result : Promise.reject(result)))
     .then((result) => result.json())

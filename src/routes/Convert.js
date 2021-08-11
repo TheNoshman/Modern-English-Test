@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useMemo } from 'react';
+import React, { useEffect, useState } from 'react';
 import { getBitcoinValueAPI, getBitcoinConversionAPI } from '../serviceAPI';
 import {
   Container,
@@ -6,15 +6,16 @@ import {
   Col,
   Button,
   Spinner,
-  DropdownButton,
-  Dropdown,
-  ListGroup,
+  FloatingLabel,
+  Form,
+  InputGroup,
 } from 'react-bootstrap';
 import { useHistory } from 'react-router-dom';
 export default function Convert() {
   const [bitcoinValue, setBitcoinValue] = useState('');
   const [loading, setLoading] = useState(true);
   const [selected, setSelected] = useState('AUD');
+  const [amount, setAmount] = useState(0);
   const history = useHistory();
   useEffect(() => {
     (async () => {
@@ -22,6 +23,14 @@ export default function Convert() {
       setLoading(false);
     })();
   }, []);
+
+  const handleSubmit = async () => {
+    console.log('cur = ', selected);
+    console.log('amount = ', amount);
+    const x = await getBitcoinConversionAPI(selected, parseInt(amount));
+    console.log('BACK = ', x);
+  };
+
   return (
     <Container>
       <Row>
@@ -34,23 +43,54 @@ export default function Convert() {
               </Spinner>
             </Col>
           ) : (
-            <Col>
-              <DropdownButton
-                style={{ marginTop: '1rem' }}
-                id='dropdown-basic-button'
-                title='From'
+            <Col md>
+              <FloatingLabel
+                controlId='floatingSelectGrid'
+                label='Select currency'
+                style={{ marginTop: '1rem', marginBottom: '1rem' }}
               >
-                {Object.keys(bitcoinValue).map((el, i) => {
-                  return (
-                    <Dropdown.Item key={i} onClick={() => setSelected(el)}>
-                      {el}
-                    </Dropdown.Item>
-                  );
-                })}
-              </DropdownButton>
+                <Form.Select
+                  aria-label='Floating label select example'
+                  onChange={(el) => setSelected(el.nativeEvent.target.value)}
+                >
+                  {Object.keys(bitcoinValue).map((el, i) => {
+                    return (
+                      <option key={i} value={el}>
+                        {el}
+                      </option>
+                    );
+                  })}
+                </Form.Select>
+              </FloatingLabel>
 
+              <Col md>
+                <InputGroup hasValidation>
+                  <InputGroup.Text>Amount</InputGroup.Text>
+
+                  <Form.Control
+                    type='number'
+                    required
+                    onChange={(v) => {
+                      setAmount(v.nativeEvent.target.value);
+                    }}
+                    value={amount}
+                  />
+                  <Form.Control.Feedback type='invalid'>
+                    Please choose a valid amount.
+                  </Form.Control.Feedback>
+                </InputGroup>
+              </Col>
+              <h1>{selected}</h1>
+              <h1>{amount}</h1>
               <Col>
-                <h3>{selected}</h3>
+                <Button
+                  style={{ marginTop: '1rem' }}
+                  type='submit'
+                  onClick={() => handleSubmit()}
+                >
+                  Submit
+                </Button>
+                <hr />
               </Col>
             </Col>
           )}
