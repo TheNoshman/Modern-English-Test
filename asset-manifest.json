@@ -1,8 +1,8 @@
 {
   "files": {
-    "main.css": "/Modern-English-Test/static/css/main.3b31f695.chunk.css",
-    "main.js": "/Modern-English-Test/static/js/main.2478afd4.chunk.js",
-    "main.js.map": "/Modern-English-Test/static/js/main.2478afd4.chunk.js.map",
+    "main.css": "/Modern-English-Test/static/css/main.5abe36a8.chunk.css",
+    "main.js": "/Modern-English-Test/static/js/main.9516ee09.chunk.js",
+    "main.js.map": "/Modern-English-Test/static/js/main.9516ee09.chunk.js.map",
     "runtime-main.js": "/Modern-English-Test/static/js/runtime-main.c59483f1.js",
     "runtime-main.js.map": "/Modern-English-Test/static/js/runtime-main.c59483f1.js.map",
     "static/css/2.da1eef19.chunk.css": "/Modern-English-Test/static/css/2.da1eef19.chunk.css",
@@ -10,14 +10,14 @@
     "static/js/2.65084c0e.chunk.js.map": "/Modern-English-Test/static/js/2.65084c0e.chunk.js.map",
     "index.html": "/Modern-English-Test/index.html",
     "static/css/2.da1eef19.chunk.css.map": "/Modern-English-Test/static/css/2.da1eef19.chunk.css.map",
-    "static/css/main.3b31f695.chunk.css.map": "/Modern-English-Test/static/css/main.3b31f695.chunk.css.map",
+    "static/css/main.5abe36a8.chunk.css.map": "/Modern-English-Test/static/css/main.5abe36a8.chunk.css.map",
     "static/js/2.65084c0e.chunk.js.LICENSE.txt": "/Modern-English-Test/static/js/2.65084c0e.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
     "static/js/runtime-main.c59483f1.js",
     "static/css/2.da1eef19.chunk.css",
     "static/js/2.65084c0e.chunk.js",
-    "static/css/main.3b31f695.chunk.css",
-    "static/js/main.2478afd4.chunk.js"
+    "static/css/main.5abe36a8.chunk.css",
+    "static/js/main.9516ee09.chunk.js"
   ]
 }
