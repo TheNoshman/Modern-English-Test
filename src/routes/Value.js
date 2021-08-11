@@ -24,12 +24,11 @@ export default function Value() {
       setBitcoinValue(result);
       setLoading(false);
     })();
-  }, []);
+  }, [selected]);
 
   const updateState = async () => {
     setLoading(true);
-    const result = await getBitcoinValueAPI();
-    setBitcoinValue(result);
+    setBitcoinValue(await getBitcoinValueAPI());
     setLoading(false);
   };
 

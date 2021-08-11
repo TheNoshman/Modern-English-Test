@@ -10,7 +10,6 @@ import {
   Form,
   InputGroup,
   Alert,
-  FormControl,
 } from 'react-bootstrap';
 import { useHistory } from 'react-router-dom';
 
@@ -31,11 +30,12 @@ export default function Convert() {
   }, []);
 
   const handleSubmit = async () => {
-    // setShow(true);
-    console.log('cur = ', selected);
-    console.log('amount = ', amount);
-    const result = await getBitcoinConversionAPI(selected, parseInt(amount));
-    setCalc(result);
+    const number = Number.parseFloat(amount.replaceAll(/\s/g, ''));
+    if (Number.isNaN(number)) {
+      setShow(true);
+      return;
+    }
+    setCalc(await getBitcoinConversionAPI(selected, parseInt(amount)));
   };
 
   return (
@@ -103,7 +103,7 @@ export default function Convert() {
                 <hr />
                 <Col xs='auto'>
                   <InputGroup className='mb-2'>
-                    <InputGroup.Text>Result</InputGroup.Text>
+                    <InputGroup.Text>₿</InputGroup.Text>
                     <Form.Control
                       type='text'
                       placeholder='Readonly input here...'
@@ -124,8 +124,6 @@ export default function Convert() {
           >
             Submit
           </Button>
-          <Button style={{ marginRight: '1rem' }}>Refresh</Button>
-
           <Button onClick={() => history.push('/')}>Back</Button>
         </Col>
       </Row>
