@@ -26,12 +26,13 @@ export default function Value() {
       setBitcoinValue(result);
       setLoading(false);
     })();
-  }, [selected]);
+  }, []);
 
   // Refresh API handler
   const updateState = async () => {
     setLoading(true);
-    setBitcoinValue(await getBitcoinValueAPI());
+    const result = await getBitcoinValueAPI();
+    setBitcoinValue(result);
     setLoading(false);
   };
 
@@ -83,8 +84,18 @@ export default function Value() {
           <Button style={{ marginRight: '1rem' }} onClick={() => updateState()}>
             Refresh
           </Button>
+          <Button
+            variant='outline-danger'
+            style={{ marginRight: '1rem' }}
+            onClick={() => window.location.reload(false)}
+          >
+            Hard Refresh
+          </Button>
 
-          <Button onClick={() => history.push('/Modern-English-Test')}>
+          <Button
+            variant='outline-primary'
+            onClick={() => history.push('/Modern-English-Test')}
+          >
             Back
           </Button>
         </Col>

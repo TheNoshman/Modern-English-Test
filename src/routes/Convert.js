@@ -120,14 +120,16 @@ export default function Convert() {
             </Col>
           )}
           <Button
-            variant='outline-primary'
             style={{ marginRight: '1rem' }}
             type='submit'
             onClick={() => handleSubmit()}
           >
             Submit
           </Button>
-          <Button onClick={() => history.push('/Modern-English-Test')}>
+          <Button
+            variant='outline-primary'
+            onClick={() => history.push('/Modern-English-Test')}
+          >
             Back
           </Button>
         </Col>
