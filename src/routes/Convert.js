@@ -9,14 +9,20 @@ import {
   FloatingLabel,
   Form,
   InputGroup,
+  Alert,
+  FormControl,
 } from 'react-bootstrap';
 import { useHistory } from 'react-router-dom';
+
 export default function Convert() {
   const [bitcoinValue, setBitcoinValue] = useState('');
   const [loading, setLoading] = useState(true);
   const [selected, setSelected] = useState('AUD');
   const [amount, setAmount] = useState(0);
+  const [show, setShow] = useState(false);
+  const [calc, setCalc] = useState(0);
   const history = useHistory();
+
   useEffect(() => {
     (async () => {
       setBitcoinValue(await getBitcoinValueAPI());
@@ -25,10 +31,11 @@ export default function Convert() {
   }, []);
 
   const handleSubmit = async () => {
+    // setShow(true);
     console.log('cur = ', selected);
     console.log('amount = ', amount);
-    const x = await getBitcoinConversionAPI(selected, parseInt(amount));
-    console.log('BACK = ', x);
+    const result = await getBitcoinConversionAPI(selected, parseInt(amount));
+    setCalc(result);
   };
 
   return (
@@ -62,7 +69,19 @@ export default function Convert() {
                   })}
                 </Form.Select>
               </FloatingLabel>
-
+              <Alert show={show} variant='danger'>
+                <Alert.Heading>Uh oh!</Alert.Heading>
+                <p>Please enter a valid amount</p>
+                <hr />
+                <div className='d-flex justify-content-end'>
+                  <Button
+                    onClick={() => setShow(false)}
+                    variant='outline-danger'
+                  >
+                    Close
+                  </Button>
+                </div>
+              </Alert>
               <Col md>
                 <InputGroup hasValidation>
                   <InputGroup.Text>Amount</InputGroup.Text>
@@ -80,20 +99,31 @@ export default function Convert() {
                   </Form.Control.Feedback>
                 </InputGroup>
               </Col>
-              <h1>{selected}</h1>
-              <h1>{amount}</h1>
               <Col>
-                <Button
-                  style={{ marginTop: '1rem' }}
-                  type='submit'
-                  onClick={() => handleSubmit()}
-                >
-                  Submit
-                </Button>
+                <hr />
+                <Col xs='auto'>
+                  <InputGroup className='mb-2'>
+                    <InputGroup.Text>Result</InputGroup.Text>
+                    <Form.Control
+                      type='text'
+                      placeholder='Readonly input here...'
+                      value={calc}
+                      readOnly
+                    />
+                  </InputGroup>
+                </Col>
                 <hr />
               </Col>
             </Col>
           )}
+          <Button
+            variant='outline-primary'
+            style={{ marginRight: '1rem' }}
+            type='submit'
+            onClick={() => handleSubmit()}
+          >
+            Submit
+          </Button>
           <Button style={{ marginRight: '1rem' }}>Refresh</Button>
 
           <Button onClick={() => history.push('/')}>Back</Button>
