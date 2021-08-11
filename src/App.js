@@ -4,7 +4,6 @@ import { Router } from 'react-router-dom';
 import Layout from './views/Layout';
 
 function App() {
-  // Navigation instantiation
   const history = createBrowserHistory();
   return (
     <Router history={history}>

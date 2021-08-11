@@ -14,6 +14,7 @@ import {
 import { useHistory } from 'react-router-dom';
 
 export default function Convert() {
+  // Local state management instantiation
   const [bitcoinValue, setBitcoinValue] = useState('');
   const [loading, setLoading] = useState(true);
   const [selected, setSelected] = useState('AUD');
@@ -22,6 +23,7 @@ export default function Convert() {
   const [calc, setCalc] = useState(0);
   const history = useHistory();
 
+  // On render, get Bitcoin value to populate conversion currency options in dropdown
   useEffect(() => {
     (async () => {
       setBitcoinValue(await getBitcoinValueAPI());
@@ -29,9 +31,10 @@ export default function Convert() {
     })();
   }, []);
 
+  // Submit handler w/ error handling
   const handleSubmit = async () => {
     const number = Number.parseFloat(amount.replaceAll(/\s/g, ''));
-    if (Number.isNaN(number)) {
+    if (Number.isNaN(number) || number < 1) {
       setShow(true);
       return;
     }
@@ -95,7 +98,7 @@ export default function Convert() {
                     value={amount}
                   />
                   <Form.Control.Feedback type='invalid'>
-                    Please choose a valid amount.
+                    Please enter a valid number.
                   </Form.Control.Feedback>
                 </InputGroup>
               </Col>

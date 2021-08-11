@@ -13,11 +13,13 @@ import {
 import { useHistory } from 'react-router-dom';
 
 export default function Value() {
+  // Local state management
   const [bitcoinValue, setBitcoinValue] = useState('');
   const [loading, setLoading] = useState(true);
   const [selected, setSelected] = useState('AUD');
   const history = useHistory();
 
+  // On render, get Bitcoin value
   useEffect(() => {
     (async () => {
       const result = await getBitcoinValueAPI();
@@ -26,6 +28,7 @@ export default function Value() {
     })();
   }, [selected]);
 
+  // Refresh API handler
   const updateState = async () => {
     setLoading(true);
     setBitcoinValue(await getBitcoinValueAPI());

@@ -2,6 +2,8 @@ import React from 'react';
 import { Container, Row, Col, Navbar } from 'react-bootstrap';
 import { LinkContainer } from 'react-router-bootstrap';
 
+// Navbar component, links to homepage on click
+
 const Navigation = () => {
   return (
     <Container>

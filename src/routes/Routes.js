@@ -6,6 +6,7 @@ import Value from './Value';
 import Convert from './Convert';
 import NotFound from './NotFound';
 
+// Navigation routes w/ error handling
 const Routes = () => {
   return (
     <Switch>
