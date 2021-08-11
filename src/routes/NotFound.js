@@ -10,7 +10,7 @@ const NotFound = () => {
         <Col>
           <h1>Page not found</h1>
           <hr />
-          <LinkContainer to='/'>
+          <LinkContainer to='/Modern-English-Test'>
             <Button>Return to Home</Button>
           </LinkContainer>
         </Col>

@@ -10,7 +10,7 @@ import NotFound from './NotFound';
 const Routes = () => {
   return (
     <Switch>
-      <Route path='/' exact component={Home} />
+      <Route path='/Modern-English-Test' exact component={Home} />
       <Route path='/value' component={Value} />
       <Route path='/convert' component={Convert} />
       <Route path='/' component={NotFound} />
