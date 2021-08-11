@@ -127,7 +127,9 @@ export default function Convert() {
           >
             Submit
           </Button>
-          <Button onClick={() => history.push('/')}>Back</Button>
+          <Button onClick={() => history.push('/Modern-English-Test')}>
+            Back
+          </Button>
         </Col>
       </Row>
     </Container>
